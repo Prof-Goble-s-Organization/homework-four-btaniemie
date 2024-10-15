@@ -209,8 +209,35 @@ public class CS232LinkedBinaryTree<K, V> implements CS232BinaryTree<K, V> {
 	 */
 	public void add(K key, V value) {
 		// Intentionally not implemented - see homework assignment.
-		throw new UnsupportedOperationException("Not yet implemented");
-		
+		if (root == null) {
+			root = new BTNode<K, V>(key, value);
+		} else {
+			BTNode<K, V> toBeAdded = new BTNode<K, V>(key, value);
+			Queue<BTNode<K, V>> nodeQ = new LinkedList<BTNode<K, V>>();
+			nodeQ.add(root);
+			BTNode<K, V> rdd = null;
+
+			while (nodeQ.size() != 0) {
+				rdd = nodeQ.remove();
+				if (rdd.left != null) {
+					nodeQ.add(rdd.left);
+				} else {
+					toBeAdded.parent = rdd;
+					rdd.left = toBeAdded;
+					break;
+				}
+	
+				if (rdd.right != null) {
+					nodeQ.add(rdd.right);
+				} else {
+					toBeAdded.parent = rdd;
+					rdd.right = toBeAdded;
+					break;
+				}
+			}
+		}
+
+		size++;
 		/*
 		 * HINT: Use a queue to perform a level order traversal of the tree until a
 		 * node with a missing child is found. At each node (starting with the
