@@ -131,8 +131,21 @@ public class CS232LinkedBinaryTree<K, V> implements CS232BinaryTree<K, V> {
 	 */
 	public CS232LinkedBinaryTree(CS232LinkedBinaryTree<K, V> leftSubTree,
 			K key, V value, CS232LinkedBinaryTree<K, V> rightSubTree) {
-		// Intentionally not implemented - see homework assignment.
-		throw new UnsupportedOperationException("Not yet implemented");
+		root = new BTNode<K, V>(key, value);
+
+		BTNode<K, V> leftChild = leftSubTree.root;
+		if (leftChild != null) {
+			leftChild.parent = root;
+			root.left = leftChild;
+		}
+
+		BTNode<K, V> rightChild = rightSubTree.root;
+		if (rightChild != null) {
+			rightChild.parent = root;
+			root.right = rightChild;
+		}
+
+		size = leftSubTree.size() + rightSubTree.size() + 1;
 	}
 
 	/**
