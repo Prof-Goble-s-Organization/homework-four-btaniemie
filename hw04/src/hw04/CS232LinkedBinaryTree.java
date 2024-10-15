@@ -401,8 +401,18 @@ public class CS232LinkedBinaryTree<K, V> implements CS232BinaryTree<K, V> {
 	 * @return
 	 */
 	public int countLeafNodes() {
-		// Intentionally not implemented - see homework assignment.
-		throw new UnsupportedOperationException("Not yet implemented");
+		return countLeafNodesHelper(root);
+	}
+
+	public int countLeafNodesHelper(BTNode<K, V> node) {
+		if (node == null) {
+			return 0;
+		} else if (node.left == null && node.right == null) {
+			return 1;
+		} else {
+			return countLeafNodesHelper(node.left) + countLeafNodesHelper(node.right);
+		}
+
 	}
 
 	/*
