@@ -159,8 +159,17 @@ public class CS232LinkedBinaryTree<K, V> implements CS232BinaryTree<K, V> {
 	 * {@inheritDoc}
 	 */
 	public boolean contains(K key) {
-		// Intentionally not implemented - see homework assignment.
-		throw new UnsupportedOperationException("Not yet implemented");
+		return subtreeContains(root, key);
+	}
+
+	public boolean subtreeContains(BTNode<K, V> subTreeRoot, K key) {
+		if (subTreeRoot == null) {
+			return false;
+		} else if (subTreeRoot.key.equals(key)) {
+			return true;
+		} else {
+			return (subtreeContains(subTreeRoot.left, key) || subtreeContains(subTreeRoot.right, key));
+		}
 	}
 
 	/**
@@ -208,7 +217,6 @@ public class CS232LinkedBinaryTree<K, V> implements CS232BinaryTree<K, V> {
 	 *            the value.
 	 */
 	public void add(K key, V value) {
-		// Intentionally not implemented - see homework assignment.
 		if (root == null) {
 			root = new BTNode<K, V>(key, value);
 		} else {
